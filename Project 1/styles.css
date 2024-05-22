@@ -1,0 +1,96 @@
+/* Reset some basic styles */
+body, h2, input, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(45deg, #5527AB, #4CA6aa);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 90%;
+    max-width: 400px;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-container {
+    padding: 20px;
+}
+
+.form-toggle {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.form-toggle button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 10px 20px;
+}
+
+.form-toggle .divider {
+    width: 1px;
+    height: 20px;
+    background-color: #ccc;
+}
+
+.form-toggle button.active {
+    background-color: #3b3b52;
+    color: white;
+    border-radius: 5px;
+}
+
+.form-toggle button:not(.active):hover {
+    background-color: #f0f0f0;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+.form.hidden {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.form h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.form input {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form button {
+    padding: 10px;
+    background: linear-gradient(45deg, #5527AB, #4CA6aa);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.form button:hover {
+    background: #6b6b83;
+}

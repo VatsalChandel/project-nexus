@@ -4,34 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="static/styles.css">
+    <link rel="stylesheet" href="/static/styles.css">
 </head>
+
 <body>
-    <div class="container fade-in">
+
+    <div class="container">
         <div class="nav-tabs">
             <a href="login" class="active">Login</a>
             <a href="signup">Signup</a>
         </div>
+
         <h2>Login</h2>
-        {% with messages = get_flashed_messages() %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
           {% if messages %}
-            <ul>
-            {% for message in messages %}
-              <li>{{ message }}</li>
+            <ul class="flashes">
+            {% for category, message in messages %}
+              <li class="{{ category }}">{{ message }}</li>
             {% endfor %}
             </ul>
           {% endif %}
         {% endwith %}
+
         <form method="POST">
             <input type="text" name="username" placeholder="Email" required>
             <input type="password" name="password" placeholder="Password" required>
             <button type="submit">Login</button>
         </form>
+        
     </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.querySelector('.container').classList.add('fade-in');
-        });
-    </script>
+
+    <script src="/static/scripts.js"></script>
+
 </body>
 </html>

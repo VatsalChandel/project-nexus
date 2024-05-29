@@ -1,5 +1,7 @@
 document.getElementById('login-toggle').addEventListener('click', function() {
+
     document.getElementById('signup-form').classList.add('hidden');
+
     setTimeout(function() {
         document.getElementById('signup-form').style.display = 'none';
         document.getElementById('login-form').style.display = 'flex';
@@ -7,8 +9,10 @@ document.getElementById('login-toggle').addEventListener('click', function() {
             document.getElementById('login-form').classList.remove('hidden');
         }, 20); 
     }, 500); 
+
     document.getElementById('login-toggle').classList.add('active');
     document.getElementById('signup-toggle').classList.remove('active');
+    
 });
 
 document.getElementById('signup-toggle').addEventListener('click', function() {

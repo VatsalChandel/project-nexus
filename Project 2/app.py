@@ -2,8 +2,10 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'secret_key' 
+
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
-app.config['SECRET_KEY'] = 'your_secret_key'  
 db = SQLAlchemy(app)
 
 class User(db.Model):
@@ -22,10 +24,10 @@ def login():
         password = request.form['password']
         user = User.query.filter_by(username=username, password=password).first()
         if user:
-            session['username'] = user.username 
+            session['username'] = user.username  
             return redirect(url_for('welcome'))
         else:
-            flash('Login Failed. Please check your username and password.')
+            flash('Login Failed. Please check your username and password.', 'danger')
     return render_template('login.html')
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -35,11 +37,12 @@ def signup():
         password = request.form['password']
         existing_user = User.query.filter_by(username=username).first()
         if existing_user:
-            flash('Username already exists. Please choose a different one.')
+            flash('Username already exists. Please choose a different one.', 'danger')
             return redirect(url_for('signup'))
         new_user = User(username=username, password=password)
         db.session.add(new_user)
         db.session.commit()
+        flash('Signup successful! Please log in.', 'success')
         return redirect(url_for('login'))
     return render_template('signup.html')
 

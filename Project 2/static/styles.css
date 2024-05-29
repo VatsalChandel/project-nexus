@@ -151,3 +151,14 @@ a {
 .logout:hover {
     text-decoration: underline;
 }
+
+.hidden {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+#password-match-message {
+    color: red;
+    margin-top: 10px;
+}
+

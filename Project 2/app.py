@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+app.config['SECRET_KEY'] = 'your_secret_key'  # Needed for session management and flash messages
 db = SQLAlchemy(app)
 
 class User(db.Model):
@@ -21,9 +22,10 @@ def login():
         password = request.form['password']
         user = User.query.filter_by(username=username, password=password).first()
         if user:
-            return redirect(url_for('dashboard'))
+            session['username'] = user.username  # Store username in session
+            return redirect(url_for('welcome'))
         else:
-            return 'Login Failed'
+            flash('Login Failed. Please check your username and password.')
     return render_template('login.html')
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -31,15 +33,28 @@ def signup():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        existing_user = User.query.filter_by(username=username).first()
+        if existing_user:
+            flash('Username already exists. Please choose a different one.')
+            return redirect(url_for('signup'))
         new_user = User(username=username, password=password)
         db.session.add(new_user)
         db.session.commit()
         return redirect(url_for('login'))
     return render_template('signup.html')
 
-@app.route('/dashboard')
-def dashboard():
-    return 'Welcome to your dashboard!'
+@app.route('/welcome')
+def welcome():
+    if 'username' in session:
+        username = session['username']
+        return render_template('welcome.html', username=username)
+    else:
+        return redirect(url_for('login'))
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     with app.app_context():

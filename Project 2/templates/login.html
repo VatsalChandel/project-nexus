@@ -7,14 +7,31 @@
     <link rel="stylesheet" href="static/styles.css">
 </head>
 <body>
-    <div class="container">
+    <div class="container fade-in">
+        <div class="nav-tabs">
+            <a href="login" class="active">Login</a>
+            <a href="signup">Signup</a>
+        </div>
         <h2>Login</h2>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
         <form method="POST">
-            <input type="text" name="username" placeholder="Username" required>
+            <input type="text" name="username" placeholder="Email" required>
             <input type="password" name="password" placeholder="Password" required>
             <button type="submit">Login</button>
         </form>
-        <a href="signup">Don't have an account? Sign up here</a>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelector('.container').classList.add('fade-in');
+        });
+    </script>
 </body>
 </html>

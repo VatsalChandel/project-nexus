@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
-app.config['SECRET_KEY'] = 'your_secret_key'  # Needed for session management and flash messages
+app.config['SECRET_KEY'] = 'your_secret_key'  
 db = SQLAlchemy(app)
 
 class User(db.Model):
@@ -22,7 +22,7 @@ def login():
         password = request.form['password']
         user = User.query.filter_by(username=username, password=password).first()
         if user:
-            session['username'] = user.username  # Store username in session
+            session['username'] = user.username 
             return redirect(url_for('welcome'))
         else:
             flash('Login Failed. Please check your username and password.')

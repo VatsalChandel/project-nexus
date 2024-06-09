@@ -35,6 +35,8 @@ section {
 .product-images {
     display: flex;
     justify-content: center;
+
+
 }
 
 .product-images img {

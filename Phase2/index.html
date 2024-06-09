@@ -7,11 +7,77 @@
     <title>Nexus Software Portfolio</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script type="module">
 
-    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-database-compat.js"></script>
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+        import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
+        const firebaseConfig = {
+            apiKey: "AIzaSyAghw_1OhfnvMgnlkJ3rDM2KWVAeh4JV0g",
+            authDomain: "phase2-744c8.firebaseapp.com",
+            databaseURL: "https://phase2-744c8-default-rtdb.firebaseio.com",
+            projectId: "phase2-744c8",
+            storageBucket: "phase2-744c8.appspot.com",
+            messagingSenderId: "1050972893863",
+            appId: "1:1050972893863:web:c15dd0f36cd7f13a142182",
+            measurementId: "G-7Y45E11TWM"
+        };
 
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const database = getDatabase(app);
+
+        const contactFormDB = ref(database, 'contactForm');
+        const feedbackFormDB = ref(database, 'feedbackForm');
+
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('contact-form').addEventListener('submit', submitContactForm);
+            document.getElementById('feedback-form').addEventListener('submit', submitFeedbackForm);
+        });
+
+        function submitContactForm(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            saveContactForm(name, email, message);
+            document.getElementById('contact-form').reset();
+        }
+
+        function saveContactForm(name, email, message) {
+            console.log("Saving contact form data:", { name, email, message }); 
+            const newContactForm = push(contactFormDB);
+            set(newContactForm, {
+                name: name,
+                email: email,
+                message: message
+            });
+        }
+
+        function submitFeedbackForm(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('feedback-name').value;
+            const email = document.getElementById('feedback-email').value;
+            const message = document.getElementById('feedback-message').value;
+
+            saveFeedbackForm(name, email, message);
+            document.getElementById('feedback-form').reset();
+        }
+
+        function saveFeedbackForm(name, email, message) {
+            console.log("Saving feedback form data:", { name, email, message }); 
+            const newFeedbackForm = push(feedbackFormDB);
+            set(newFeedbackForm, {
+                name: name,
+                email: email,
+                message: message
+            });
+        }
+    </script>
 </head>
 <body>
     <header>
@@ -80,7 +146,5 @@
         </div>
         <p>&copy; 2024 Nexus Software. All rights reserved.</p>
     </footer>
-
-    <script src="script.js"></script>
 </body>
 </html>

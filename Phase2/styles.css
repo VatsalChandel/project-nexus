@@ -27,22 +27,60 @@ nav ul li a {
     text-decoration: none;
 }
 
+.container {
+    max-width: 1200px; /* Adjust the max-width as needed */
+    margin: 0 auto;
+    padding: 0 20px; /* Optional padding */
+}
+
 section {
     padding: 2rem;
     text-align: center;
 }
 
+.about-heading {
+    font-size: 2em; /* Adjust the font size as needed */
+}
+
 .product-images {
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
 
-
+.product-images div {
+    flex: 1 1 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
 }
 
 .product-images img {
-    margin: 1rem;
     max-width: 100%;
     height: auto;
+}
+
+.product-images p {
+    text-align: center;
+}
+
+.product-images .header {
+    font-weight: bold;
+    font-style: italic;
+}
+
+.header {
+    font-style: italic;
+    font-size: 1.5em;
+}
+
+.product-images .container {
+    border: 12px solid #0066ff;
+    border-radius: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 10px;
 }
 
 form {
@@ -51,12 +89,16 @@ form {
     align-items: center;
 }
 
-form label, form input, form textarea, form button {
+form label,
+form input,
+form textarea,
+form button {
     margin: 0.5rem 0;
     width: 80%;
 }
 
-form input, form textarea {
+form input,
+form textarea {
     padding: 0.5rem;
 }
 
@@ -93,5 +135,10 @@ footer {
 
     .product-images {
         flex-direction: column;
+    }
+
+    .product-images div {
+        flex: 1 1 100%;
+        margin: 10px 0;
     }
 }
